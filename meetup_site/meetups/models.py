@@ -8,3 +8,5 @@ class Company(models.Model):
     time_create =models.DateTimeField(auto_now_add=True)
     time_update =models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
