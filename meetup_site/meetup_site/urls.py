@@ -17,11 +17,16 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from meetup_site import settings
-from meetups.views import index
+from meetups.views import index, about, contact, login, show_post, show_category
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index)
+    path('', index, name='home'),
+    path('about/', about, name='about'),
+    path('contact/', contact, name='contact'),
+    path('login/', login, name='login'),
+    path('post/<int:post_id>/', show_post, name='post'),
+    path('category/<int:cat_id>/', show_category, name='category'),
 ]
 
 if settings.DEBUG:
