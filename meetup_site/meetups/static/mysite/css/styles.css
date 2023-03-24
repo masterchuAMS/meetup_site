@@ -200,9 +200,7 @@ div.button {
 .left-chapters ul li.share a.share-yt:hover {
 	width: 50px;
 	height: 50px;
-	background: url('../images/share_yt.png') no-repeat 0 -30px
 }
-
 .content {
 	padding: 40px 20px 20px 40px;
 	width: 100%;
