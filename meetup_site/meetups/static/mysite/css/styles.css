@@ -1,11 +1,34 @@
+
 html, body {
-	font-family: 'Montserrat';
+	font-family: 'Roboto', sans-serif;
 	margin: 0;
 	padding: 0;
 	height: 100%;
 	width: 100%;
 	color: #444;
+	box-sizing: border-box;
 }
+
+
+/*########PAGE########*/
+
+.page_title{
+	font-family: 'Roboto', sans-serif;
+}
+.page_card{
+	width: 1000px;
+	border: 3px solid #696969;
+	border-radius: 10px;
+	padding: 20px;
+	margin: 20px 0;
+	background-color: #f0f0f0;
+	box-shadow: #d8d8d8 0px 0px 10px 10px;
+}
+.page_cats{
+	display: flex;
+	justify-content: space-between;
+}
+/*########PAGE########*/
 
 a {
 	color: #0059b2;
@@ -32,6 +55,7 @@ img.img-article-left.thumb {
 
 p.link-read-post {
 	text-align: right;
+	
 }
 p.link-read-post a {
 	padding: 10px;
@@ -42,7 +66,7 @@ p.link-read-post a {
 }
 
 div.article-panel {
-    background: #eee;
+    background: #ffffff;
     padding: 5px 10px 5px 10px;
     box-sizing: border-box;
     overflow: hidden;
@@ -85,7 +109,9 @@ ul.list-articles li {
 	width: 70px;
 	height: 60px;
 }
-
+.mainmenu{
+	background-color: #272727;
+}
 ul.mainmenu {
 	list-style: none;
 	margin: 0;
@@ -103,11 +129,11 @@ ul.mainmenu li.logo {margin: 0;}
 ul.mainmenu li.last {float: right;}
 
 ul.mainmenu li a {
-	color: #fdc073;
+	color: #ffffff;
 	text-decoration: none;
 }
 ul.mainmenu li a:hover {
-	color: #FDA83D;
+	color: #e4d5c3;
 }
 
 .panelitems {
@@ -271,7 +297,7 @@ ul.lang-list {
 	list-style: none;
 	margin: 0;
 	padding: 14px 0 0 0;
-	background: #3F4137;
+	background: #ffffff;
 	width: 100%;
 	height: 50px;
 	border-top: 1px solid #959A82;
@@ -354,7 +380,7 @@ ul.lang-list li a:hover {color: #fdc073;}
 #footer {
 	box-sizing: border-box;
 
-	background: #3F4137;
+	background-color: #272727;
 	padding: 5px;
 	color: #aaa;
 	font-size: 14px;
@@ -366,18 +392,21 @@ ul.lang-list li a:hover {color: #fdc073;}
 	text-decoration: underline;
 	color: #aaa;
 }
-
 .form-input {
     width: 300px;
     font-size: 16px;
+    border-radius: 5px;
 }
-
+input#id_photo{
+	width: 120px;
+	height: 30px;
+	background-color: #ffffff83;
+}
 .form-label {
     display: inline-block;
-    min-width: 150px;
+    min-width: 200px;
     vertical-align: top;
 }
-
 .form-error ul {
     list-style: none;
     padding: 0;
