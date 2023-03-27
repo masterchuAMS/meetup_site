@@ -5,12 +5,23 @@ from django.urls import reverse
 # Create your models here
 class Company(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название Компании')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        db_index=True,
+        verbose_name="URL")
     content = models.TextField(blank=True, verbose_name='Описание Компании')
-    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Логотип')
-    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
-    time_update = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
-    cat = models.ForeignKey('Category', on_delete=models.PROTECT,verbose_name='Категория')
+    photo = models.ImageField(
+        upload_to="photos/%Y/%m/%d/",
+        verbose_name='Логотип')
+    time_create = models.DateTimeField(
+        auto_now_add=True, verbose_name='Время создания')
+    time_update = models.DateTimeField(
+        auto_now=True, verbose_name='Время изменения')
+    cat = models.ForeignKey(
+        'Category',
+        on_delete=models.PROTECT,
+        verbose_name='Категория')
 
     def __str__(self):
         return self.title
@@ -25,8 +36,16 @@ class Company(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name='Категория')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
+    name = models.CharField(
+        max_length=100,
+        db_index=True,
+        verbose_name='Категория')
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        db_index=True,
+        verbose_name="URL")
+
     def __str__(self):
         return self.name
 
@@ -45,6 +64,7 @@ class Menu(models.Model):
 
     def __str__(self):
         return self.title
+
     class Meta:
         verbose_name = 'Меню'
         verbose_name_plural = 'Меню'

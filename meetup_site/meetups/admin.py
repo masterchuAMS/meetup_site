@@ -11,6 +11,7 @@ class CompanyAdmin(admin.ModelAdmin):
     list_filter = ('time_create',)
     prepopulated_fields = {"slug": ("title",)}
 
+
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
