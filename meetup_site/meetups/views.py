@@ -1,19 +1,19 @@
-from django.http import Http404
-from django.shortcuts import render, get_object_or_404, redirect
-
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView
 from .forms import AddPostForm
-from .models import Company, Category
+from .models import Company
 
 
-def index(request):
-    posts = Company.objects.all()
+class CompanyHome(ListView):
+    model = Company
+    template_name = 'mysite/index.html'
+    context_object_name = 'posts'
 
-    context = {
-        'posts': posts,
-        'title': 'Главная страница',
-        'cat_selected': 0,
-    }
-    return render(request, 'mysite/index.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Главная страница'
+        context['cat_selected'] = 0
+        return context
 
 
 def about(request):
@@ -37,47 +37,39 @@ def login(request):
     return render(request, 'mysite/login.html', context=context)
 
 
-def addpage(request):
-    if request.method == 'POST':
-        form = AddPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            # print(form.cleaned_data)
-            try:
-                form.save()
-                return redirect('home')
-            except:
-                form.add_error(None, 'Ошибка добавления мерпориятия')
+class AddPage(CreateView):
+    form_class = AddPostForm
+    template_name = 'mysite/addpage.html'
 
-    else:
-        form = AddPostForm()
-    context = {
-        'title': 'Добавить мероприятие',
-        'form': form,
-    }
-    return render(request, 'mysite/addpage.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Добавления мероприятия'
+        return context
 
 
-def show_post(request, post_slug):
-    post = get_object_or_404(Company, slug=post_slug)
-    context = {
-        'post': post,
-        'title': post.title,
-        'cat_selected': post.pk
-    }
+class CompanyCategories(ListView):
+    model = Company
+    template_name = 'mysite/index.html'
+    context_object_name = 'posts'
+    allow_empty = False
 
-    return render(request, 'mysite/post.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Категория - ' + str(context['posts'][0].cat)
+        context['cat_selected'] = context['posts'][0].cat_id
+        return context
+
+    def get_queryset(self):
+        return Company.objects.filter(cat__slug=self.kwargs['cat_slug'])
 
 
-def show_category(request, cat_slug):
-    cat = Category.objects.filter(slug=cat_slug)
-    posts = Company.objects.filter(cat_id=cat[0].id)
+class ShowPost(DetailView):
+    model = Company
+    template_name = 'mysite/post.html'
+    slug_url_kwarg = 'post_slug'
+    context_object_name = 'post'
 
-    if len(posts) == 0:
-        raise Http404()
-
-    context = {
-        'posts': posts,
-        'title': 'Отображение по рубрикам',
-        'cat_selected': cat_slug,
-    }
-    return render(request, 'mysite/index.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['post']
+        return context
