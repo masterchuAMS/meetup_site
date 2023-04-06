@@ -7,5 +7,5 @@ class DataMixin:
         cats = Company.objects.all()
         context['cats'] = cats
         if 'cat_selected' not in context:
-            context['cat_selected'] = 0
+            context['cat_selected'] =   0
         return context
