@@ -2,18 +2,18 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from .forms import AddPostForm
 from .models import Company
+from .utilits import DataMixin
 
 
-class CompanyHome(ListView):
+class CompanyHome(DataMixin, ListView):
     model = Company
     template_name = 'mysite/index.html'
     context_object_name = 'posts'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Главная страница'
-        context['cat_selected'] = 0
-        return context
+        c_def = self.get_user_context(title='Главная страница')
+        return dict(list(c_def.items())+list(context.items()))
 
 
 def about(request):
@@ -37,17 +37,17 @@ def login(request):
     return render(request, 'mysite/login.html', context=context)
 
 
-class AddPage(CreateView):
+class AddPage(DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'mysite/addpage.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Добавления мероприятия'
-        return context
+        c_def = self.get_user_context(title='Добавления мероприятия')
+        return dict(list(c_def.items())+list(context.items()))
 
 
-class CompanyCategories(ListView):
+class CompanyCategories(DataMixin, ListView):
     model = Company
     template_name = 'mysite/index.html'
     context_object_name = 'posts'
@@ -55,15 +55,15 @@ class CompanyCategories(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Категория - ' + str(context['posts'][0].cat)
-        context['cat_selected'] = context['posts'][0].cat_id
-        return context
+        c_def = self.get_user_context(title='Категория - ' + str(context['posts'][0].cat),
+                                      cat_selected=context['posts'][0].cat_id)
+        return dict(list(c_def.items())+list(context.items()))
 
     def get_queryset(self):
         return Company.objects.filter(cat__slug=self.kwargs['cat_slug'])
 
 
-class ShowPost(DetailView):
+class ShowPost(DataMixin, DetailView):
     model = Company
     template_name = 'mysite/post.html'
     slug_url_kwarg = 'post_slug'
@@ -71,5 +71,5 @@ class ShowPost(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = context['post']
-        return context
+        c_def = self.get_user_context(title=context['post'])
+        return dict(list(c_def.items())+list(context.items()))
