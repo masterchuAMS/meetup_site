@@ -3,7 +3,7 @@ from meetups.models import Company
 
 class DataMixin:
     def get_user_context(self, **kwargs):
-        context = kwargs
+        context =    kwargs
         cats = Company.objects.all()
         context['cats'] = cats
         if 'cat_selected' not in context:
