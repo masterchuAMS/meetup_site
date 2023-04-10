@@ -7,7 +7,6 @@ from .utilits import DataMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CompanyHome(DataMixin, ListView):
-    paginate_by = 2
     model = Company
     template_name = 'mysite/index.html'
     context_object_name = 'posts'
