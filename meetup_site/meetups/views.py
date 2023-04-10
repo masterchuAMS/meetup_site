@@ -1,11 +1,13 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from .forms import AddPostForm
 from .models import Company
 from .utilits import DataMixin
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CompanyHome(DataMixin, ListView):
+    paginate_by = 2
     model = Company
     template_name = 'mysite/index.html'
     context_object_name = 'posts'
@@ -37,14 +39,17 @@ def login(request):
     return render(request, 'mysite/login.html', context=context)
 
 
-class AddPage(DataMixin, CreateView):
+class AddPage(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddPostForm
     template_name = 'mysite/addpage.html'
+    success_url = reverse_lazy('home')
+    login_url = reverse_lazy('home')
+    raise_exception = True
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Добавления мероприятия')
-        return dict(list(c_def.items())+list(context.items()))
+        return dict(list(c_def.items()) + list(context.items()))
 
 
 class CompanyCategories(DataMixin, ListView):
