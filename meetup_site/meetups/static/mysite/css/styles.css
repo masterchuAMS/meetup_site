@@ -32,14 +32,6 @@ html, body {
 }
 /*########PAGE########*/
 
-a {
-	color: #0059b2;
-	text-decoration: none;
-}
-a:hover {
-	color: #CC0000;
-	text-decoration: underline;
-}
 
 img {max-width: 600px; height: auto;}
 
@@ -437,4 +429,44 @@ input#id_photo{
 .form-add:hover{
 	box-shadow: 0 0 3px 5px #ffa1ff;
 	
+}
+
+/*#########PAGINATION##########*/
+
+.list-pages{
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+	align-items: center;
+}
+
+.page-num{
+	display: flex;
+	margin: 0 20px;
+	width: 45px;
+	height: 30px;
+	list-style: none;
+	background-color: rgb(37, 37, 37);
+	border-radius: 5px;
+	color: whitesmoke;
+	align-items: center;
+	justify-content: center;
+	transition: linear .2s;
+}
+.page-num:hover{
+	transform: scale(1.2);
+	transition: linear .2s;
+}
+.page-num-selected{
+	background-color: #444;
+	transform: scale(1); 
+}
+.page-num-selected:hover{
+	transform: scale(1); 
+}
+.page-link{
+	cursor: pointer;
+	text-decoration: none;
+	color: whitesmoke;
+	padding: 5px 18px;
 }
