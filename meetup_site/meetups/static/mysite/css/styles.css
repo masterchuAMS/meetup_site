@@ -81,6 +81,10 @@ div.article-panel p.last {
     margin: 0;
     float: right;
 }
+p.link-read-post a:hover{
+	background-color: #ff8c00;
+	transition: linear .2s;
+} 
 
 ul.list-articles {
 	list-style: none;
@@ -134,6 +138,12 @@ ul.mainmenu li.last {float: right;}
 ul.mainmenu li a {
 	color: #ffffff;
 	text-decoration: none;
+	border-radius: 5px;
+	transition: linear .2s;
+	background-color: #ffa638;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+
 }
 ul.mainmenu li a:hover {
 	color: #e4d5c3;
