@@ -16,7 +16,7 @@ html, body {
 	font-family: 'Roboto', sans-serif;
 }
 .page_card{
-	width: 1000px;
+	max-width: 1200px;
 	border: 3px solid #696969;
 	border-radius: 10px;
 	padding: 20px;
@@ -54,11 +54,18 @@ p.link-read-post {
 p.link-read-post a {
 	padding: 10px;
 	min-width: 100px;
-	background: #333671;
+	background: #ffa940;
 	color: #fff;
 	text-decoration: none;
+	transition: linear .2s;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+	border-radius: 5px;
 }
-
+p.link-read-post a:hover{
+	background-color: #ff8c00;
+	transition: linear 0.2s;
+}
 div.article-panel {
     background: #ffffff;
     padding: 5px 10px 5px 10px;
@@ -82,6 +89,8 @@ ul.list-articles {
 }
 ul.list-articles li {
 	border-bottom: 1px solid #ccc;
+	width: 1200px;
+	margin: 0 auto;
 }
 
 .table-page {
@@ -280,10 +289,8 @@ ul.content-table li a {
 ul.content-table li a:hover {color: #F0711C;}
 
 .content-text {
-	margin: 30px 0 30px 50px;
 	color: #000;
 	font-size: 20px;
-	font-family: Montserrat;
 }
 .content-text h1 {font-size: 32px;}
 
