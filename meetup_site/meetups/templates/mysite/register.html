@@ -1,0 +1,16 @@
+{% extends 'mysite/base.html' %}
+
+{% block content %}
+<div class="container">
+<h1>{{title}}</h1>
+
+<form method="post">
+    {% csrf_token%}
+        {% for f in form %}
+        <div class="form-field"><label for="{{ f.id_for_label}}"></label>{{f}}</div>
+        <div class="form-error">{{f.errors}}</div>
+    {% endfor %}
+    <button class="form-button" type="submit">Регистрация</button>
+</form>
+</div>
+{% endblock %}
