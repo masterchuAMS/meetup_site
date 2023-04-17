@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.contrib.auth import logout, login
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-from .forms import AddPostForm, RegisterUserForm
+from .forms import AddPostForm, RegisterUserForm, LoginUserForm
 from .models import Company
-from .utilits import DataMixin
+from .utilits import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CompanyHome(DataMixin, ListView):
@@ -29,13 +31,6 @@ def contact(request):
         'title': 'Контакты',
     }
     return render(request, 'mysite/contact.html', context=context)
-
-
-def login(request):
-    context = {
-        'title': 'Войти',
-    }
-    return render(request, 'mysite/login.html', context=context)
 
 
 class AddPage(LoginRequiredMixin, DataMixin, CreateView):
@@ -88,3 +83,25 @@ class RegisterUser(DataMixin, CreateView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title = "Регистрация")
         return dict(list(context.items())+list(c_def.items()))
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
+class LoginUser(DataMixin, LoginView):
+    form_class = LoginUserForm
+    template_name = 'mysite/login.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Авторизация")
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
