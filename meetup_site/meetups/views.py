@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from .forms import AddPostForm, RegisterUserForm, LoginUserForm
 from .models import Company
-from .utilits import DataMixin
+from .utilits import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CompanyHome(DataMixin, ListView):
