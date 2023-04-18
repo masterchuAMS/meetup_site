@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from meetup_site import settings
 from meetups.views import about, contact, CompanyHome, CompanyCategories, ShowPost, AddPage, \
     RegisterUser, LoginUser, logout_user
@@ -31,6 +31,7 @@ urlpatterns = [
     path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
     path('category/<slug:cat_slug>/', CompanyCategories.as_view(), name='category'),
     path('addpage/', AddPage.as_view(), name='addpage'),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 if settings.DEBUG:
